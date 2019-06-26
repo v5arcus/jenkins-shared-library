@@ -1,5 +1,4 @@
-#!/usr/bin/env groovy
-def call(name) {
+def call(String name) {
     // you can call any valid step functions from your code, just like you can from Pipeline scripts
     echo "Hello world, ${name}"
 }
