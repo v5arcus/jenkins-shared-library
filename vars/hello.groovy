@@ -5,6 +5,7 @@ def call(cutiing) {
             returnStdout: true
             ).trim()
         }    
+        echo "We are going to deploy ${serviceName}"
 }
 
 // def call(String name) {
