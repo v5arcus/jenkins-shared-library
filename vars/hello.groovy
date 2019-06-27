@@ -1,11 +1,11 @@
-def call(cutting, pitting) {
+def call(cutting) {
     script {
         serviceName = sh (
             script: "echo ${POD_NAME} |  cut -d '-' -f 1",
             returnStdout: true
             ).trim()
         }    
-        echo "We ${pitting} are going ${cutting} to deploy ${serviceName}"
+        echo "We are going ${cutting} to deploy ${serviceName}"
 }
 
 // def call(String name) {
