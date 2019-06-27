@@ -1,4 +1,4 @@
-def checkUser()
+def checkUser() {
 
         stage('check user'){
             steps {
@@ -6,3 +6,4 @@ def checkUser()
                 sh " cp /var/lib/jenkins/${CLUSTER_CONFIG} ${workspace}/"
             }
         }
+}
