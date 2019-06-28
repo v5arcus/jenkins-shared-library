@@ -1,4 +1,4 @@
-def call() {
+def hello() {
     script {
         serviceName = sh (
             script: "echo ${POD_NAME} |  cut -d '-' -f 1",
