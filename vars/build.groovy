@@ -1,6 +1,8 @@
 def call() {
-    withMaven(){
-        sh 'mvn --version'
-        sh 'mvn clean install'
+    withMaven() {
+        sh """
+    export JENKINS_MAVEN_AGENT_DISABLED=true
+    mvn clean install
+    """
     }
 }
