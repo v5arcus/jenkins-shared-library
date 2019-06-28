@@ -1,11 +1,8 @@
 def call() {
-    script {
-        serviceName = sh (
-            script: "echo ${POD_NAME} |  cut -d '-' -f 1",
-            returnStdout: true
-            ).trim()
-        }    
-        echo "We are going to deploy ${serviceName}"
+    serviceName = sh (
+        script: "echo ${SERVICE_NAME} |  cut -d '-' -f 1",
+        returnStdout: true
+        ).trim()
 }
 
 // def call(String name) {
