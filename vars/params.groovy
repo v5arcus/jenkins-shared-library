@@ -7,5 +7,6 @@ def call() {
             choice(choices: 'api-gateway\ncampaign-service\ncron-manager-service\ninstrumentation-service\nload-money-service\nmarketing-panel\nmerchant-gateway\nmerchant-identity-service\nnotification-service\notp-service\np2p-service\nrecharge-service\nreporting-service\nspend-money-service\nuser-identity-service\nwithdraw-service\nbill-payments-service\ncustomer-support-dashboard\nkyc-service\nmerchant-panel\nmerchant-ops-panel', description: 'Select the name of the service need to be deployed', name: 'POD_NAME'),
             string(defaultValue: "latest", description: 'Build Number want to deploy', name: 'BUILD_NUMBER')
         ])
-    ]))
+    ])
+    )
 }
