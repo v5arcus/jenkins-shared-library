@@ -1,10 +1,12 @@
 def call() {
     node {
 
-        def p = pipelineCfg()
+        // def p = pipelineCfg()
 
         stage{
-            echo "${p.ENVIRONMENT}"
+            sh 'pwd'
+            sh 'ls'
+            // echo "${p.ENVIRONMENT}"
         }
 
 
