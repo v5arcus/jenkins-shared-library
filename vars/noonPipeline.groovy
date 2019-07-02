@@ -3,7 +3,7 @@ def call() {
 
         // def p = pipelineCfg()
 
-        stage{
+        stage('listing'){
             sh 'pwd'
             sh 'ls'
             // echo "${p.ENVIRONMENT}"
