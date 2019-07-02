@@ -4,7 +4,7 @@ def call() {
         def p = pipelineCfg()
 
         stage{
-            echo "${p.environment}"
+            echo "${p.ENVIRONMENT}"
         }
 
 
