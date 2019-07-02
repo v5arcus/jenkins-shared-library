@@ -12,6 +12,7 @@ def call() {
             sh 'pwd'
             sh 'ls'
             echo "${p.ENVIRONMENT}"
+            echo "${p.NAMESPACE}"
         }
 
 
