@@ -40,9 +40,9 @@ def call() {
         }
 
         stage ('deploy') {
-            echo "We are going to deploy ${SERVICE_NAME}"
-            sh "kubectl set image deployment/${SERVICE_NAME} ${SERVICE_NAME}=${REGISTRY_PATH}/${SERVICE_NAME}:${BUILD_NUMBER} -n ${ENVIRONMENT_NAME} --kubeconfig=${CLUSTER_CONFIG}"
-            sh "kubectl rollout status deployment/${SERVICE_NAME} -n ${ENVIRONMENT_NAME} --kubeconfig=${CLUSTER_CONFIG}"
+            echo "We are going to deploy ${p.SERVICE_NAME}"
+            sh "kubectl set image deployment/${p.SERVICE_NAME} ${p.SERVICE_NAME}=${p.REGISTRY_PATH}/${p.SERVICE_NAME}:${BUILD_NUMBER} -n ${p.ENVIRONMENT_NAME} --kubeconfig=${p.CLUSTER_CONFIG}"
+            sh "kubectl rollout status deployment/${p.SERVICE_NAME} -n ${p.ENVIRONMENT_NAME} --kubeconfig=${p.CLUSTER_CONFIG}"
         }
 
     }
