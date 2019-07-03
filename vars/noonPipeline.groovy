@@ -27,11 +27,9 @@ def call() {
         //         ).trim()            
         // }
 
-        stage('Let\'s Build'){
-            steps{
+        stage('Let\'s Build') {
                 sh 'mvn --version'
                 sh 'mvn clean install'
-            }
         }
 
     }
