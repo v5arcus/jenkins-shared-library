@@ -9,10 +9,8 @@ def call() {
 
 
         stage('listing'){
-            sh 'pwd'
-            sh 'ls'
-            echo "${p.ENVIRONMENT}"
-            echo "${p.NAMESPACE}"
+            sh " export ${p.CLUSTER_CONFIG}"
+            sh " cp /var/lib/jenkins/${p.CLUSTER_CONFIG} ${workspace}/"
         }
 
 
