@@ -20,13 +20,19 @@ def call() {
                 ).trim()
         }
 
-        stage('current image service tag') {
-            previousVersion = sh (
-                    script: 'kubectl describe deployment p.SERVICE_NAME -n p.ENVIRONMENT_NAME --kubeconfig=p.CLUSTER_CONFIG| grep Image | awk -F \"/noonpay_development/p.SERVICE_NAME:\" \'{print $2}\' ',
-                    returnStdout: true
-                ).trim()            
-        }
+        // stage('current image service tag') {
+        //     previousVersion = sh (
+        //             script: "kubectl describe deployment p.SERVICE_NAME -n p.ENVIRONMENT_NAME --kubeconfig=p.CLUSTER_CONFIG| grep Image | awk -F \"/noonpay_development/p.SERVICE_NAME:\" \'{print $2}\' ",
+        //             returnStdout: true
+        //         ).trim()            
+        // }
 
+        stage('Let\'s Build'){
+            steps{
+                sh 'mvn --version'
+                sh 'mvn clean install'
+            }
+        }
 
     }
 }
