@@ -15,14 +15,14 @@ def call() {
 
         stage('Updating serviceName') {
             serviceName = sh (
-                    script: "echo ${SERVICE_NAME} |  cut -d '-' -f 1",
+                    script: "echo ${p.SERVICE_NAME} |  cut -d '-' -f 1",
                     returnStdout: true
                 ).trim()
         }
 
         stage('current image service tag') {
             previousVersion = sh (
-                    script: 'kubectl describe deployment ${SERVICE_NAME} -n ${ENVIRONMENT_NAME} --kubeconfig=${CLUSTER_CONFIG}| grep Image | awk -F \"/noonpay_development/${SERVICE_NAME}:\" \'{print $2}\' ',
+                    script: 'kubectl describe deployment ${p.SERVICE_NAME} -n ${p.ENVIRONMENT_NAME} --kubeconfig=${p.CLUSTER_CONFIG}| grep Image | awk -F \"/noonpay_development/${p.SERVICE_NAME}:\" \'{print $2}\' ',
                     returnStdout: true
                 ).trim()            
         }
