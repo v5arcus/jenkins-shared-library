@@ -35,7 +35,14 @@ def call() {
         stage ('Build Service Docker Image') {
             docker.withRegistry('https://registry-intl.me-east-1.aliyuncs.com', 'dockerhub') {
                 sh "docker build -t ${p.REGISTRY_PATH}/${p.SERVICE_NAME}:${p.BUILD_NUMBER} ."
+                sh "docker push ${p.REGISTRY_PATH}/${p.SERVICE_NAME}:${p.BUILD_NUMBER}"
             }
+        }
+
+        stage ('deploy') {
+            echo "We are going to deploy ${SERVICE_NAME}"
+            sh "kubectl set image deployment/${SERVICE_NAME} ${SERVICE_NAME}=${REGISTRY_PATH}/${SERVICE_NAME}:${BUILD_NUMBER} -n ${ENVIRONMENT_NAME} --kubeconfig=${CLUSTER_CONFIG}"
+            sh "kubectl rollout status deployment/${SERVICE_NAME} -n ${ENVIRONMENT_NAME} --kubeconfig=${CLUSTER_CONFIG}"
         }
 
     }
