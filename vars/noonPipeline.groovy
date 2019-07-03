@@ -32,5 +32,11 @@ def call() {
                 sh 'mvn clean install'
         }
 
+        stage ('Build Service Docker Image') {
+            docker.withRegistry('https://registry-intl.me-east-1.aliyuncs.com', 'dockerhub') {
+                sh 'docker build -t ${REGISTRY_PATH}/${SERVICE_NAME}:${BUILD_NUMBER} .'
+            }
+        }
+
     }
 }
