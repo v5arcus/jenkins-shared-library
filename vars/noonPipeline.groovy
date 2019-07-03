@@ -28,14 +28,14 @@ def call() {
         // }
 
         stage('Let\'s Build') {
-                sh 'mvn --version'
+                sh '/opt/maven/bin/mvn --version'
                 sh "/opt/maven/bin/mvn clean install"
         }
 
         stage ('Build Service Docker Image') {
             docker.withRegistry('https://registry-intl.me-east-1.aliyuncs.com', 'dockerhub') {
-                sh "docker build -t ${p.REGISTRY_PATH}/${p.SERVICE_NAME}:${p.BUILD_NUMBER} ."
-                sh "docker push ${p.REGISTRY_PATH}/${p.SERVICE_NAME}:${p.BUILD_NUMBER}"
+                sh "docker build -t ${p.REGISTRY_PATH}/${p.SERVICE_NAME}:${BUILD_NUMBER} ."
+                sh "docker push ${p.REGISTRY_PATH}/${p.SERVICE_NAME}:${BUILD_NUMBER}"
             }
         }
 
