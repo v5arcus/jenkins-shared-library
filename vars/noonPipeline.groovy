@@ -8,17 +8,21 @@ def call() {
          def p = pipelineCfg()
 
 
-        stage('listing'){
+        stage('Prerequistes'){
             sh " export ${p.CLUSTER_CONFIG}"
             sh " cp /var/lib/jenkins/${p.CLUSTER_CONFIG} ${workspace}/"
-        }
-
-        stage('Updating serviceName') {
             serviceName = sh (
                     script: "echo ${p.SERVICE_NAME} |  cut -d '-' -f 1",
                     returnStdout: true
                 ).trim()
         }
+
+        // stage('Updating serviceName') {
+        //     serviceName = sh (
+        //             script: "echo ${p.SERVICE_NAME} |  cut -d '-' -f 1",
+        //             returnStdout: true
+        //         ).trim()
+        // }
 
         // stage('current image service tag') {
         //     previousVersion = sh (
@@ -27,19 +31,19 @@ def call() {
         //         ).trim()            
         // }
 
-        stage('Let\'s Build') {
-                sh '/opt/maven/bin/mvn --version'
+        stage('Build & Test') {
+                sh "/opt/maven/bin/mvn --version"
                 sh "/opt/maven/bin/mvn clean install"
         }
 
-        stage ('Build Service Docker Image') {
+        stage ('Push Docker Image') {
             docker.withRegistry('https://registry-intl.me-east-1.aliyuncs.com', 'dockerhub') {
                 sh "docker build -t ${p.REGISTRY_PATH}/${p.SERVICE_NAME}:${BUILD_NUMBER} ."
                 sh "docker push ${p.REGISTRY_PATH}/${p.SERVICE_NAME}:${BUILD_NUMBER}"
             }
         }
 
-        stage ('deploy') {
+        stage ('Deploy') {
             echo "We are going to deploy ${p.SERVICE_NAME}"
             sh "kubectl set image deployment/${p.SERVICE_NAME} ${p.SERVICE_NAME}=${p.REGISTRY_PATH}/${p.SERVICE_NAME}:${BUILD_NUMBER} -n ${p.ENVIRONMENT_NAME} --kubeconfig=${p.CLUSTER_CONFIG}"
             sh "kubectl rollout status deployment/${p.SERVICE_NAME} -n ${p.ENVIRONMENT_NAME} --kubeconfig=${p.CLUSTER_CONFIG}"
