@@ -42,19 +42,19 @@ def call() {
             sh "kubectl rollout status deployment/${p.SERVICE_NAME} -n ${p.ENVIRONMENT_NAME} --kubeconfig=${p.CLUSTER_CONFIG}"
 
             if ("${p.SERVICE_NAME}" == 'merchant-gateway') {
-                sh "ssh kubecli@47.91.111.100 -p 2290 yaml_cli -f /home/kubecli/k8s-manifest/${p.ENVIRONMENT_NAME}/helm-${p.ENVIRONMENT_NAME}/application/values.yaml -n gateway:image_tag ${BUILD_NUMBER}"
+                sh "ssh kubecli yaml_cli -f /home/kubecli/k8s-manifest/${p.ENVIRONMENT_NAME}/helm-${p.ENVIRONMENT_NAME}/application/values.yaml -n gateway:image_tag ${BUILD_NUMBER}"
             }
             else if ("${p.SERVICE_NAME}" == 'merchant-identity-service') {
-                sh "ssh kubecli@47.91.111.100 -p 2290 yaml_cli -f /home/kubecli/k8s-manifest/${p.ENVIRONMENT_NAME}/helm-${p.ENVIRONMENT_NAME}/application/values.yaml -n identity:image_tag ${BUILD_NUMBER}"
+                sh "ssh kubecli yaml_cli -f /home/kubecli/k8s-manifest/${p.ENVIRONMENT_NAME}/helm-${p.ENVIRONMENT_NAME}/application/values.yaml -n identity:image_tag ${BUILD_NUMBER}"
             }
             else if ("${p.SERVICE_NAME}" == 'merchant-panel') {
-                sh "ssh kubecli@47.91.111.100 -p 2290 yaml_cli -f /home/kubecli/k8s-manifest/${p.ENVIRONMENT_NAME}/helm-${p.ENVIRONMENT_NAME}/application/values.yaml -n panel:image_tag ${BUILD_NUMBER}"
+                sh "ssh kubecli yaml_cli -f /home/kubecli/k8s-manifest/${p.ENVIRONMENT_NAME}/helm-${p.ENVIRONMENT_NAME}/application/values.yaml -n panel:image_tag ${BUILD_NUMBER}"
             }
             else if ("${p.SERVICE_NAME}" == 'merchant-ops-panel') {
-                sh "ssh kubecli@47.91.111.100 -p 2290 yaml_cli -f /home/kubecli/k8s-manifest/${p.ENVIRONMENT_NAME}/helm-${p.ENVIRONMENT_NAME}/application/values.yaml -n merchant:image_tag ${BUILD_NUMBER}"
+                sh "ssh kubecli yaml_cli -f /home/kubecli/k8s-manifest/${p.ENVIRONMENT_NAME}/helm-${p.ENVIRONMENT_NAME}/application/values.yaml -n merchant:image_tag ${BUILD_NUMBER}"
             }
             else {
-                sh "ssh kubecli@47.91.111.100 -p 2290 yaml_cli -f /home/kubecli/k8s-manifest/${p.ENVIRONMENT_NAME}/helm-${p.ENVIRONMENT_NAME}/application/values.yaml -n ${serviceName}:image_tag ${BUILD_NUMBER}"
+                sh "ssh kubecli yaml_cli -f /home/kubecli/k8s-manifest/${p.ENVIRONMENT_NAME}/helm-${p.ENVIRONMENT_NAME}/application/values.yaml -n ${serviceName}:image_tag ${BUILD_NUMBER}"
             }
         }
 
