@@ -17,13 +17,6 @@ def call() {
                 ).trim()
         }
 
-        // stage('current image service tag') {
-        //     previousVersion = sh (
-        //             script: "kubectl describe deployment p.SERVICE_NAME -n p.ENVIRONMENT_NAME --kubeconfig=p.CLUSTER_CONFIG| grep Image | awk -F \"/noonpay_development/p.SERVICE_NAME:\" \'{print $2}\' ",
-        //             returnStdout: true
-        //         ).trim()            
-        // }
-
         stage('Build & Test') {
                 sh "/opt/maven/bin/mvn --version"
                 sh "/opt/maven/bin/mvn clean install"
